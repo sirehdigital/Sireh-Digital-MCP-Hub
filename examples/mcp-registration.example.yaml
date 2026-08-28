@@ -1,0 +1,25 @@
+mcp_id: MCP-RES-999
+name: Example Research MCP
+domain: research
+provider: Example Provider
+status: EVALUATING
+purpose: Demonstration only
+business_owner: TBD
+technical_owner: TBD
+projects:
+  - example-project
+environments:
+  - development
+access_mode: read
+risk_tier: Tier 1
+authentication: API key via environment variable
+required_scopes:
+  - public.read
+data_sensitivity: public
+human_approval_required: false
+configuration:
+  endpoint: https://example.invalid
+  api_key_env: EXAMPLE_MCP_API_KEY
+documentation: mcp/research/example.md
+last_reviewed: YYYY-MM-DD
+notes: Never place the real API key in this file.
