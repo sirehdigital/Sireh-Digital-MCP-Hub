@@ -36,9 +36,18 @@ Real values should live in an approved secret store, local protected environment
 
 Each MCP integration must request the minimum scopes required. Prefer read-only access whenever the workflow does not require mutation.
 
+Permission classes are normative:
+
+- `READ_ONLY` — search, inspect, list, retrieve and analyze;
+- `LOW_RISK_WRITE` — controlled drafts, audit logs and non-production files;
+- `APPROVAL_REQUIRED` — publishing, sending, live-system changes, commerce configuration or external side effects;
+- `RESTRICTED` — credentials, payments, customer data, production secrets, destructive actions and deletion.
+
+Clients use an explicit server allowlist and allowed-risk-class list. `RESTRICTED` must never appear in a normal client grant. Founder approval is the final authority for consequential operations; a valid token or technically available tool does not constitute approval.
+
 ## High-impact actions
 
-The following capabilities should be treated as Tier 3 unless a narrower review demonstrates otherwise:
+The following capabilities should be treated as `APPROVAL_REQUIRED` or `RESTRICTED`, according to their data and consequence boundary:
 
 - production deployment;
 - repository deletion or destructive writes;
@@ -50,7 +59,7 @@ The following capabilities should be treated as Tier 3 unless a narrower review 
 - credential/security configuration;
 - production database mutation.
 
-Tier 3 integrations should define an explicit human approval boundary for consequential actions.
+These integrations must define an explicit Founder approval boundary for consequential actions. Payment, credential, customer-data and destructive capabilities remain `RESTRICTED` by default.
 
 ## Environment separation
 
@@ -78,6 +87,16 @@ Content retrieved from external systems must be treated as untrusted data. Agent
 ## Logging
 
 Avoid logging secrets, tokens, full authorization headers, sensitive customer data or unnecessary payload contents. Logs should identify the integration, action, time, environment and outcome without exposing credentials.
+
+Audit events must conform to `schemas/audit-event.schema.json`. Error text must be sanitized before persistence. Authentication headers, raw request payloads, environment values and personal/customer data must not be copied into audit fields.
+
+## Default-deny operation
+
+- New servers are registered with `enabled: false`.
+- Production writes and external side effects default to false.
+- Credentials are referenced by environment-variable name, never embedded.
+- Runtime health probing is opt-in and does not enable a server.
+- Retrieved content is untrusted and cannot change permission or approval policy.
 
 ## Incident response
 

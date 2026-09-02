@@ -1,105 +1,43 @@
 # Sireh Digital MCP Registry
 
-Version: 0.1
-Status: Foundation register
+Version: 0.1.0
+Status: VERIFIED FOUNDATION
 
-This file is the canonical inventory of MCP services and connector capabilities approved, under evaluation or planned for the Sireh Digital ecosystem.
+The canonical, machine-readable inventory is `registry/mcp-registry.json`. This document is its human-readable overview; update both in one change.
 
 ## Status values
 
-- `PLANNED` — identified but not yet evaluated
-- `EVALUATING` — security/capability review in progress
-- `APPROVED-DEV` — approved for development only
-- `APPROVED-STAGING` — approved for staging
-- `APPROVED-PROD` — approved for production
-- `HOLD` — temporarily paused
-- `RETIRED` — no longer used
+- `DRAFT` — incomplete or not yet verified
+- `REGISTERED` — contract recorded, but not runtime-ready
+- `READY` — configuration and approved readiness checks pass for the stated environment
+- `DEGRADED` — usable only with a recorded limitation or failed readiness check
+- `DISABLED` — intentionally unavailable
 
-## Registry
+## Risk classes
 
-| MCP ID | Name | Domain | Provider | Intended use | Access | Risk | Status | Projects |
-|---|---|---|---|---|---|---|---|---|
-| MCP-DEV-001 | GitHub | Development | GitHub | Repository, issue, PR and code workflows | Mixed | Tier 3 | EVALUATING | Sireh Digital engineering |
-| MCP-RES-001 | Firecrawl | Research | Firecrawl | Web search, extraction and research workflows | Read / controlled write | Tier 2 | EVALUATING | SACReS, SACHI, SirehLuxe research |
-| MCP-COM-001 | Shopify | Commerce | Shopify | Store, product, order and commerce workflows | Mixed | Tier 3 | PLANNED | SACP, SirehLuxe |
-| MCP-MKT-001 | Meta Platform | Marketing | Meta | Social/marketing integrations where supported | Mixed | Tier 3 | PLANNED | SirehLuxe marketing |
-| MCP-AUT-001 | Hermes | Automation | Sireh Digital | Local/agent workflow orchestration | Mixed | Tier 3 | PLANNED | Sireh Digital automation |
+- `READ_ONLY` — search, inspect, list, retrieve and analyze
+- `LOW_RISK_WRITE` — controlled drafts, logs and non-production files
+- `APPROVAL_REQUIRED` — publishing, sending, live updates, commerce configuration and external side effects
+- `RESTRICTED` — credentials, payments, customer data, production secrets, destructive actions and deletion
 
-> The entries above are architecture placeholders until exact MCP implementation, authentication model and permission scopes are documented and verified.
+## Registered servers
 
-## Required record template
+| MCP ID | Name | Domain | Environments | Enabled | Risk | Status |
+|---|---|---|---|---:|---|---|
+| MCP-DEV-001 | GitHub MCP | development | development | No | APPROVAL_REQUIRED | REGISTERED |
+| MCP-RES-001 | Firecrawl MCP | research | development | No | READ_ONLY | REGISTERED |
+| MCP-COM-001 | Shopify MCP | commerce | development | No | APPROVAL_REQUIRED | DRAFT |
+| MCP-MKT-001 | Meta Platform MCP | marketing | development | No | APPROVAL_REQUIRED | DRAFT |
+| MCP-AUT-001 | Hermes MCP Gateway | automation | development | No | LOW_RISK_WRITE | DRAFT |
 
-Use this template when registering a new MCP.
+These records preserve the foundation inventory. They do not assert that an implementation package, endpoint, credential, scope or live connection has been verified. All remain disabled in v0.1.
 
-```yaml
-mcp_id: MCP-XXX-000
-name: Example MCP
-domain: research
-provider: Example Provider
-status: EVALUATING
-purpose: Short description
-business_owner: TBD
-technical_owner: TBD
-projects:
-  - project-name
-environments:
-  - development
-access_mode: read
-risk_tier: Tier 1
-authentication: OAuth2
-required_scopes:
-  - example.read
-data_sensitivity: public
-human_approval_required: false
-documentation: mcp/research/example.md
-last_reviewed: YYYY-MM-DD
-notes: ""
-```
+## Required server contract
 
-## Approval checklist
+Every entry must include a stable ID, name, domain, owners, environments, environment-referenced transport locator, enabled state, authentication type, credential environment-variable names, capabilities, risk class, health check, version, status and existing documentation reference.
 
-Before changing an MCP to an approved state, verify:
+Client records and server allowlists are defined in `registry/clients.json`. See `docs/integration-guides/REGISTRATION.md` for the registration process.
 
-- exact provider/server identity;
-- official or trusted implementation source;
-- authentication method;
-- scopes/permissions;
-- read/write behaviour;
-- data categories exposed;
-- external data retention implications;
-- secret-storage method;
-- rate limits and cost exposure;
-- failure and rollback behaviour;
-- human-approval requirements;
-- project owner and technical owner;
-- test evidence for the target environment.
+## Approval rule
 
-## Naming convention
-
-```text
-MCP-<DOMAIN>-<NUMBER>
-```
-
-Domain codes:
-
-- `COM` — Commerce
-- `RES` — Research
-- `MKT` — Marketing
-- `AUT` — Automation
-- `DEV` — Development
-- `PRD` — Productivity
-- `DAT` — Data / database
-- `INF` — Infrastructure
-
-## Review policy
-
-Production MCP records should be reviewed when any of the following changes:
-
-- provider or server implementation;
-- authentication mechanism;
-- requested permissions/scopes;
-- data categories;
-- business owner;
-- production workflow;
-- major version;
-- security incident or material vulnerability.
+`READY` means validated for a named environment; it does not override approval. Any `APPROVAL_REQUIRED` operation must be blocked until Founder approval is recorded. `RESTRICTED` capabilities must not be granted through ordinary client registration.

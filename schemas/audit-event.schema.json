@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sirehdigital.com/schemas/audit-event.schema.json",
+  "title": "Sireh Digital MCP Audit Event",
+  "type": "object",
+  "required": ["timestamp", "event_id", "actor", "client", "server", "tool", "action", "environment", "risk_class", "approval_required", "approval_status", "result", "correlation_id", "error"],
+  "properties": {
+    "timestamp": {"type": "string", "format": "date-time"},
+    "event_id": {"type": "string", "minLength": 1},
+    "actor": {"type": "string", "minLength": 1},
+    "client": {"type": "string", "minLength": 1},
+    "server": {"type": "string", "minLength": 1},
+    "tool": {"type": "string", "minLength": 1},
+    "action": {"type": "string", "minLength": 1},
+    "environment": {"enum": ["development", "staging", "production"]},
+    "risk_class": {"enum": ["READ_ONLY", "LOW_RISK_WRITE", "APPROVAL_REQUIRED", "RESTRICTED"]},
+    "approval_required": {"type": "boolean"},
+    "approval_status": {"enum": ["NOT_REQUIRED", "PENDING", "APPROVED", "DENIED"]},
+    "result": {"enum": ["SUCCESS", "FAILURE", "BLOCKED", "DEGRADED"]},
+    "correlation_id": {"type": "string", "minLength": 1},
+    "error": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

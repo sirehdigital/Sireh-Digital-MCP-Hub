@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-09-02T06:00:00Z",
+  "event_id": "evt_example_001",
+  "actor": "Founder",
+  "client": "CLIENT-CODEX-SURI",
+  "server": "MCP-RES-001",
+  "tool": "web.search",
+  "action": "inspect public research source",
+  "environment": "development",
+  "risk_class": "READ_ONLY",
+  "approval_required": false,
+  "approval_status": "NOT_REQUIRED",
+  "result": "SUCCESS",
+  "correlation_id": "corr_example_001",
+  "error": null
+}

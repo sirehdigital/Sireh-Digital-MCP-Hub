@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "clients": [
+    {
+      "id": "CLIENT-CODEX-SURI",
+      "name": "Codex / Suri",
+      "owner": "Founder",
+      "type": "engineering_agent",
+      "environments": ["development", "staging"],
+      "enabled": true,
+      "server_allowlist": ["MCP-DEV-001", "MCP-RES-001", "MCP-COM-001"],
+      "allowed_risk_classes": ["READ_ONLY", "LOW_RISK_WRITE", "APPROVAL_REQUIRED"],
+      "approval_authority": "Founder",
+      "documentation": "examples/codex-suri.mcp.example.json"
+    },
+    {
+      "id": "CLIENT-HERMES-MISS-HERMES",
+      "name": "Hermes / Miss Hermes",
+      "owner": "Founder",
+      "type": "automation_agent",
+      "environments": ["development"],
+      "enabled": false,
+      "server_allowlist": ["MCP-RES-001", "MCP-AUT-001"],
+      "allowed_risk_classes": ["READ_ONLY", "LOW_RISK_WRITE"],
+      "approval_authority": "Founder",
+      "documentation": "examples/hermes-miss-hermes.mcp.example.json"
+    },
+    {
+      "id": "CLIENT-CHATGPT-SERI",
+      "name": "ChatGPT / Seri",
+      "owner": "Founder",
+      "type": "operator_assistant",
+      "environments": ["development"],
+      "enabled": false,
+      "server_allowlist": ["MCP-RES-001"],
+      "allowed_risk_classes": ["READ_ONLY"],
+      "approval_authority": "Founder",
+      "documentation": "docs/integration-guides/REGISTRATION.md"
+    },
+    {
+      "id": "CLIENT-LOCAL-FUTURE",
+      "name": "Future Local Agent",
+      "owner": "Founder",
+      "type": "local_agent_template",
+      "environments": ["development"],
+      "enabled": false,
+      "server_allowlist": [],
+      "allowed_risk_classes": ["READ_ONLY"],
+      "approval_authority": "Founder",
+      "documentation": "docs/integration-guides/REGISTRATION.md"
+    }
+  ]
+}

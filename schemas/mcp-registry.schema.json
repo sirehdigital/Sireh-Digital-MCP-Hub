@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sirehdigital.com/schemas/mcp-registry.schema.json",
+  "title": "Sireh Digital MCP Registry",
+  "type": "object",
+  "required": ["schema_version", "hub_version", "updated_at", "servers"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "hub_version": {"type": "string"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "servers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "domain", "owner", "environment", "transport", "enabled", "authentication", "capabilities", "risk_class", "health_check", "version", "status", "documentation"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^MCP-[A-Z]{3}-[0-9]{3}$"},
+          "name": {"type": "string", "minLength": 1},
+          "domain": {"enum": ["automation", "commerce", "data", "development", "infrastructure", "marketing", "productivity", "research"]},
+          "owner": {
+            "type": "object",
+            "required": ["business", "technical"],
+            "properties": {"business": {"type": "string"}, "technical": {"type": "string"}},
+            "additionalProperties": false
+          },
+          "environment": {"type": "array", "items": {"enum": ["development", "staging", "production"]}, "minItems": 1, "uniqueItems": true},
+          "transport": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": {"enum": ["stdio", "http", "sse"]},
+              "command": {"type": "string"},
+              "args": {"type": "array", "items": {"type": "string"}},
+              "endpoint": {"type": "string"}
+            },
+            "additionalProperties": false
+          },
+          "enabled": {"type": "boolean"},
+          "authentication": {
+            "type": "object",
+            "required": ["type", "credential_env"],
+            "properties": {
+              "type": {"enum": ["none", "api_key", "oauth2", "bearer", "mtls"]},
+              "credential_env": {"type": "array", "items": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]*$"}, "uniqueItems": true}
+            },
+            "additionalProperties": false
+          },
+          "capabilities": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+          "risk_class": {"enum": ["READ_ONLY", "LOW_RISK_WRITE", "APPROVAL_REQUIRED", "RESTRICTED"]},
+          "health_check": {"type": "object"},
+          "version": {"type": "string"},
+          "status": {"enum": ["DRAFT", "REGISTERED", "READY", "DEGRADED", "DISABLED"]},
+          "documentation": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

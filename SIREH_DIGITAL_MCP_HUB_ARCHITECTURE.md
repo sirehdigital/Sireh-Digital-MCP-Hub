@@ -1,7 +1,7 @@
 # Sireh Digital MCP Hub Architecture
 
-Version: 0.1
-Status: Foundation
+Version: 0.1.0
+Status: VERIFIED FOUNDATION
 
 ## 1. Mission
 
@@ -70,7 +70,7 @@ Examples: SirehLuxe, SACP, JourneyMATE, WeddingMATE and future Sireh Digital pro
 AI agents and operator experiences that decide when tools are needed.
 
 ### Layer C — MCP governance layer
-This repository. It stores registry records, architecture rules, templates, runbooks and approved patterns.
+This repository. It stores machine-readable server/client registries, architecture rules, templates, runbooks and approved patterns.
 
 ### Layer D — MCP servers/connectors
 Protocol endpoints that expose tools, resources and actions.
@@ -134,18 +134,19 @@ Discover
   -> Retire
 ```
 
-## 9. Risk tiers
+## 9. Permission classes
 
-### Tier 1 — Low
-Public/read-only data, no customer data, no mutations.
+### READ_ONLY
+Search, inspect, list, retrieve and analyze.
 
-### Tier 2 — Moderate
-Authenticated read access or reversible low-impact writes.
+### LOW_RISK_WRITE
+Controlled drafts, audit logs and non-production files.
 
-### Tier 3 — High
-Customer data, publishing, financial, production or destructive capabilities.
+### APPROVAL_REQUIRED
+Publishing, sending, live-system changes, commerce configuration and external side effects. Explicit Founder approval is required.
 
-Tier 3 integrations require explicit owner approval, narrower scopes and stronger audit controls.
+### RESTRICTED
+Credentials, payments, customer data, production secrets, destructive actions and deletion. These capabilities are not granted through ordinary client profiles.
 
 ## 10. Initial target integrations
 

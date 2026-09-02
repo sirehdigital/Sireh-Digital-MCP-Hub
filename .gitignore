@@ -42,3 +42,8 @@ Thumbs.db
 *.cookie
 *.cookies
 local-config.*
+
+# Generated runtime/audit output
+var/
+logs/*.jsonl
+readiness-report*.json

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sirehdigital.com/schemas/client-registry.schema.json",
+  "title": "Sireh Digital MCP Client Registry",
+  "type": "object",
+  "required": ["schema_version", "clients"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "clients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "owner", "type", "environments", "enabled", "server_allowlist", "allowed_risk_classes", "approval_authority", "documentation"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^CLIENT-[A-Z0-9-]+$"},
+          "name": {"type": "string", "minLength": 1},
+          "owner": {"type": "string", "minLength": 1},
+          "type": {"type": "string", "minLength": 1},
+          "environments": {"type": "array", "items": {"enum": ["development", "staging", "production"]}, "minItems": 1, "uniqueItems": true},
+          "enabled": {"type": "boolean"},
+          "server_allowlist": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "allowed_risk_classes": {"type": "array", "items": {"enum": ["READ_ONLY", "LOW_RISK_WRITE", "APPROVAL_REQUIRED"]}, "minItems": 1, "uniqueItems": true},
+          "approval_authority": {"const": "Founder"},
+          "documentation": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

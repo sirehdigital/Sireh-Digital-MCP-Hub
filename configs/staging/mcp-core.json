@@ -1,0 +1,10 @@
+{
+  "environment": "staging",
+  "registry_path": "registry/mcp-registry.json",
+  "clients_path": "registry/clients.json",
+  "writes_enabled": false,
+  "external_side_effects_enabled": false,
+  "founder_approval_required": true,
+  "health_checks_enabled": false,
+  "audit_log_enabled": true
+}

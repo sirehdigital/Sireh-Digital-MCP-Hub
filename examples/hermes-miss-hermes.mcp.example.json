@@ -1,0 +1,24 @@
+{
+  "client_id": "CLIENT-HERMES-MISS-HERMES",
+  "environment": "development",
+  "enabled": false,
+  "servers": {
+    "research": {
+      "registry_id": "MCP-RES-001",
+      "enabled": false,
+      "transport": "http",
+      "endpoint_env": "FIRECRAWL_MCP_ENDPOINT",
+      "credential_env": "FIRECRAWL_API_KEY",
+      "maximum_risk_class": "READ_ONLY"
+    },
+    "local_gateway": {
+      "registry_id": "MCP-AUT-001",
+      "enabled": false,
+      "transport": "stdio",
+      "command_env": "HERMES_MCP_COMMAND",
+      "maximum_risk_class": "LOW_RISK_WRITE",
+      "production_writes_enabled": false,
+      "require_founder_approval_for_external_effects": true
+    }
+  }
+}

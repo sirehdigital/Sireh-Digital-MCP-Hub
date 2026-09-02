@@ -1,0 +1,24 @@
+{
+  "client_id": "CLIENT-CODEX-SURI",
+  "environment": "development",
+  "enabled": true,
+  "servers": {
+    "github": {
+      "registry_id": "MCP-DEV-001",
+      "enabled": false,
+      "transport": "stdio",
+      "command_env": "GITHUB_MCP_COMMAND",
+      "credential_env": "GITHUB_MCP_TOKEN",
+      "maximum_risk_class": "APPROVAL_REQUIRED",
+      "require_founder_approval_for_writes": true
+    },
+    "firecrawl": {
+      "registry_id": "MCP-RES-001",
+      "enabled": false,
+      "transport": "http",
+      "endpoint_env": "FIRECRAWL_MCP_ENDPOINT",
+      "credential_env": "FIRECRAWL_API_KEY",
+      "maximum_risk_class": "READ_ONLY"
+    }
+  }
+}
